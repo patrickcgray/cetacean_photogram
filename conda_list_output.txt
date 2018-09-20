@@ -1,0 +1,140 @@
+# packages in environment at /home/clifgray/anaconda3/envs/maskrcnn:
+#
+# Name                    Version                   Build  Channel
+absl-py                   0.2.2                     <pip>
+alabaster                 0.7.10                    <pip>
+astor                     0.6.2                     <pip>
+Babel                     2.6.0                     <pip>
+backcall                  0.1.0                      py_0    conda-forge
+blas                      1.0                         mkl  
+bleach                    2.1.3                      py_0    conda-forge
+bleach                    1.5.0                     <pip>
+ca-certificates           2018.03.07                    0  
+certifi                   2018.4.16                py36_0  
+chardet                   3.0.4                     <pip>
+cycler                    0.10.0                    <pip>
+Cython                    0.28.3                    <pip>
+decorator                 4.3.0                      py_0    conda-forge
+docutils                  0.14                      <pip>
+entrypoints               0.2.3                    py36_1    conda-forge
+gast                      0.2.0                     <pip>
+gmp                       6.1.2                         0    conda-forge
+grpcio                    1.12.0                    <pip>
+h5py                      2.7.1                     <pip>
+html5lib                  0.9999999                 <pip>
+html5lib                  1.0.1                      py_0    conda-forge
+idna                      2.6                       <pip>
+imagesize                 1.0.0                     <pip>
+imgaug                    0.2.5                     <pip>
+intel-openmp              2018.0.0                      8  
+ipykernel                 4.8.2                    py36_0    conda-forge
+ipyparallel               6.1.1                     <pip>
+ipython                   6.4.0                     <pip>
+ipython                   6.4.0                    py36_0    conda-forge
+ipython-genutils          0.2.0                     <pip>
+ipython_genutils          0.2.0                    py36_0    conda-forge
+ipywidgets                7.2.1                     <pip>
+jedi                      0.12.0                    <pip>
+jedi                      0.12.0                   py36_0    conda-forge
+jinja2                    2.10                     py36_0    conda-forge
+Jinja2                    2.10                      <pip>
+jsonschema                2.6.0                    py36_1    conda-forge
+jupyter_client            5.2.3                    py36_0    conda-forge
+jupyter_core              4.4.0                      py_0    conda-forge
+jupyterlab                0.32.1                   py36_0    conda-forge
+jupyterlab_launcher       0.10.5                   py36_0    conda-forge
+Keras                     2.1.6                     <pip>
+kiwisolver                1.0.1                     <pip>
+libedit                   3.1.20170329         h6b74fdf_2  
+libffi                    3.2.1                hd88cf55_4  
+libgcc-ng                 7.2.0                hdf63c60_3  
+libgfortran-ng            7.2.0                hdf63c60_3  
+libsodium                 1.0.16                        0    conda-forge
+libstdcxx-ng              7.2.0                hdf63c60_3  
+Markdown                  2.6.11                    <pip>
+markupsafe                1.0                      py36_0    conda-forge
+MarkupSafe                1.0                       <pip>
+matplotlib                2.2.2                     <pip>
+mistune                   0.8.3                    py36_1    conda-forge
+mistune                   0.8.3                     <pip>
+mkl                       2018.0.2                      1  
+mkl_fft                   1.0.1            py36h3010b51_0  
+mkl_random                1.0.1            py36h629b387_0  
+nbconvert                 5.3.1                      py_1    conda-forge
+nbformat                  4.4.0                    py36_0    conda-forge
+ncurses                   6.1                  hf484d3e_0  
+networkx                  2.1                       <pip>
+nose                      1.3.7                     <pip>
+notebook                  5.5.0                    py36_0    conda-forge
+notebook                  5.5.0                     <pip>
+numpy                     1.14.3                    <pip>
+numpy                     1.14.3           py36hcd700cb_1  
+numpy-base                1.14.3           py36h9be14a7_1  
+opencv-python             3.4.1.15                  <pip>
+opencv3                   3.1.0                    py36_0    menpo
+openssl                   1.0.2o               h20670df_0  
+packaging                 17.1                      <pip>
+pandas                    0.23.1           py36h637b7d7_0  
+pandoc                    2.2.1                         0    conda-forge
+pandocfilters             1.4.2                    py36_0    conda-forge
+parso                     0.2.1                     <pip>
+parso                     0.2.1                      py_0    conda-forge
+pexpect                   4.5.0                     <pip>
+pexpect                   4.6.0                    py36_0    conda-forge
+pickleshare               0.7.4                    py36_0    conda-forge
+pickleshare               0.7.4                     <pip>
+Pillow                    5.1.0                     <pip>
+pip                       10.0.1                   py36_0  
+prompt-toolkit            1.0.15                    <pip>
+prompt_toolkit            1.0.15                   py36_0    conda-forge
+protobuf                  3.5.2.post1               <pip>
+ptyprocess                0.5.2                    py36_0    conda-forge
+ptyprocess                0.5.2                     <pip>
+pycocotools               2.0                       <pip>
+pygments                  2.2.0                    py36_0    conda-forge
+Pygments                  2.2.0                     <pip>
+pyparsing                 2.2.0                     <pip>
+python                    3.6.5                hc3d631a_2  
+python-dateutil           2.7.3                     <pip>
+python-dateutil           2.7.3                      py_0    conda-forge
+pytz                      2018.4                   py36_0  
+pytz                      2018.4                    <pip>
+PyWavelets                0.5.2                     <pip>
+PyYAML                    3.12                      <pip>
+pyzmq                     17.0.0                    <pip>
+pyzmq                     17.0.0                   py36_4    conda-forge
+qtconsole                 4.3.1                     <pip>
+readline                  7.0                  ha6073c6_4  
+requests                  2.18.4                    <pip>
+scikit-image              0.13.1                    <pip>
+scipy                     1.1.0                     <pip>
+send2trash                1.5.0                      py_0    conda-forge
+setuptools                39.1.0                   py36_0  
+simplegeneric             0.8.1                    py36_0    conda-forge
+simplegeneric             0.8.1                     <pip>
+six                       1.11.0                   py36_1    conda-forge
+six                       1.11.0                    <pip>
+snowballstemmer           1.2.1                     <pip>
+Sphinx                    1.7.4                     <pip>
+sphinxcontrib-websupport  1.0.1                     <pip>
+sqlite                    3.23.1               he433501_0  
+tensorboard               1.7.0                     <pip>
+tensorflow-gpu            1.7.0                     <pip>
+termcolor                 1.1.0                     <pip>
+terminado                 0.8.1                     <pip>
+terminado                 0.8.1                    py36_0    conda-forge
+testpath                  0.3.1                    py36_0    conda-forge
+tk                        8.6.7                hc745277_3  
+tornado                   5.0.2                    py36_0    conda-forge
+traitlets                 4.3.2                    py36_0    conda-forge
+urllib3                   1.22                      <pip>
+wcwidth                   0.1.7                    py36_0    conda-forge
+wcwidth                   0.1.7                     <pip>
+webencodings              0.5                      py36_0    conda-forge
+Werkzeug                  0.14.1                    <pip>
+wheel                     0.31.1                   py36_0  
+widgetsnbextension        3.2.1                     <pip>
+xlrd                      1.1.0            py36h1db9f0c_1  
+xz                        5.2.4                h14c3975_4  
+zeromq                    4.2.5                         1    conda-forge
+zlib                      1.2.11               ha838bed_2  
