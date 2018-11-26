@@ -70,6 +70,7 @@ class WhaleConfig(Config):
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 265 # num of total training images
+    #STEPS_PER_EPOCH = 265*6 # num of total training images
 
     # Skip detections with < 60% confidence
     DETECTION_MIN_CONFIDENCE = 0.6
@@ -79,7 +80,7 @@ class WhaleConfig(Config):
 
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
-    IMAGES_PER_GPU = 1
+    IMAGES_PER_GPU = 2
 
     # If enabled, resizes instance masks to a smaller size to reduce
     # memory load. Recommended when using high-resolution images.
@@ -94,23 +95,42 @@ class WhaleConfig(Config):
     MASK_SHAPE = [56, 56]
     #MASK_SHAPE = [112, 112]
 
-    RPN_TRAIN_ANCHORS_PER_IMAGE = 256
-    #RPN_TRAIN_ANCHORS_PER_IMAGE = 128
+    # Length of square anchor side in pixels
+    # Making larger since objects and images are large
+    RPN_ANCHOR_SCALES = (128, 256, 512)
 
-    TRAIN_ROIS_PER_IMAGE = 200
+    #RPN_TRAIN_ANCHORS_PER_IMAGE = 256
+    RPN_TRAIN_ANCHORS_PER_IMAGE = 128
+
+    # Anchor stride
+    # If 1 then anchors are created for each cell in the backbone feature map.
+    # If 2, then anchors are created for every other cell, and so on.
+    RPN_ANCHOR_STRIDE = 2
+
+    #TRAIN_ROIS_PER_IMAGE = 200
     #TRAIN_ROIS_PER_IMAGE = 100
+    # reduce ROIs because we have few objects per iamge
+    TRAIN_ROIS_PER_IMAGE = 32
 
+    # Learning rate and momentum
+    # The Mask RCNN paper uses lr=0.02, but on TensorFlow it causes
+    # weights to explode. Likely due to differences in optimizer
+    # implementation.
+    LEARNING_RATE = 0.001
     LEARNING_MOMENTUM = 0.9
+
+    # Weight decay regularization
+    WEIGHT_DECAY = 0.001
 
 
     # Loss weights for more precise optimization.
     # Can be used for R-CNN training setup.
     LOSS_WEIGHTS = {
         "rpn_class_loss": 1.,
-        "rpn_bbox_loss": 1.,
-        "mrcnn_class_loss": 1.,
-        "mrcnn_bbox_loss": 1.,
-        "mrcnn_mask_loss": 1.
+        "rpn_bbox_loss": 2.,
+        "mrcnn_class_loss": 2.,
+        "mrcnn_bbox_loss": 2.,
+        "mrcnn_mask_loss": 5.
     }
 
 
@@ -278,23 +298,57 @@ def train(model):
     # COCO trained weights, we don't need to train too long. Also,
     # no need to train all layers, just the heads should do it.
 
+    # first run
     #layers_training='heads'
+    # second run
     #layers_training='3+'
+    # third run
     layers_training='all'
-    epochs_to_train=100
+    epochs_to_train=250
 
-        # adding image augmentation parameters
+    # adding image augmentation parameters
+
+    augmentation = iaa.Sometimes(.667, iaa.Sequential([
+        iaa.Fliplr(0.5), # horizontal flips
+        iaa.Crop(percent=(0, 0.1)), # random crops
+        # Small gaussian blur with random sigma between 0 and 0.25.
+        # But we only blur about 50% of all images.
+        iaa.Sometimes(0.5,
+            iaa.GaussianBlur(sigma=(0, 0.25))
+        ),
+        # Strengthen or weaken the contrast in each image.
+        iaa.ContrastNormalization((0.75, 1.5)),
+        # Add gaussian noise.
+        # For 50% of all images, we sample the noise once per pixel.
+        # For the other 50% of all images, we sample the noise per pixel AND
+        # channel. This can change the color (not only brightness) of the
+        # pixels.
+        iaa.AdditiveGaussianNoise(loc=0, scale=(0.0, 0.05*255)),
+        # Make some images brighter and some darker.
+        # In 20% of all cases, we sample the multiplier once per channel,
+        # which can end up changing the color of the images.
+        iaa.Multiply((0.8, 1.2)),
+        # Apply affine transformations to each image.
+        # Scale/zoom them, translate/move them, rotate them and shear them.
+        iaa.Affine(
+            scale={"x": (0.8, 1.2), "y": (0.8, 1.2)},
+            #translate_percent={"x": (-0.2, 0.2), "y": (-0.2, 0.2)},
+            rotate=(-180, 180),
+            #shear=(-8, 8)
+        )
+    ], random_order=True)) # apply augmenters in random order
+
+    # old image aug parameters
+    """
     augmentation = iaa.Sometimes(0.9, [
         iaa.Fliplr(0.5),
         iaa.Flipud(0.5),
         iaa.Multiply((0.8, 1.2)),
         iaa.GaussianBlur(sigma=(0.0, 5.0))
         ])
-    #augmentation = False
+    """
 
-
-    
-    print("Training network heads with augmentation.")
+    print("Training heads with augmentation.")
     print("*****Beginning training*****")
     print("config.LEARNING_RATE", config.LEARNING_RATE/5)
     print("layers_training:", layers_training)
