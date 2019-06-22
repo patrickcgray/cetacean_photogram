@@ -80,7 +80,7 @@ class WhaleConfig(Config):
 
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
-    IMAGES_PER_GPU = 2
+    IMAGES_PER_GPU = 1
 
     # If enabled, resizes instance masks to a smaller size to reduce
     # memory load. Recommended when using high-resolution images.
@@ -95,39 +95,20 @@ class WhaleConfig(Config):
     MASK_SHAPE = [56, 56]
     #MASK_SHAPE = [112, 112]
 
-    # Length of square anchor side in pixels
-    # Making larger since objects and images are large
-    RPN_ANCHOR_SCALES = (128, 256, 512)
+    RPN_TRAIN_ANCHORS_PER_IMAGE = 256
+    #RPN_TRAIN_ANCHORS_PER_IMAGE = 128
 
-    #RPN_TRAIN_ANCHORS_PER_IMAGE = 256
-    RPN_TRAIN_ANCHORS_PER_IMAGE = 128
-
-    # Anchor stride
-    # If 1 then anchors are created for each cell in the backbone feature map.
-    # If 2, then anchors are created for every other cell, and so on.
-    RPN_ANCHOR_STRIDE = 2
-
-    #TRAIN_ROIS_PER_IMAGE = 200
+    TRAIN_ROIS_PER_IMAGE = 200
     #TRAIN_ROIS_PER_IMAGE = 100
-    # reduce ROIs because we have few objects per iamge
-    TRAIN_ROIS_PER_IMAGE = 32
 
-    # Learning rate and momentum
-    # The Mask RCNN paper uses lr=0.02, but on TensorFlow it causes
-    # weights to explode. Likely due to differences in optimizer
-    # implementation.
-    LEARNING_RATE = 0.001
     LEARNING_MOMENTUM = 0.9
-
-    # Weight decay regularization
-    WEIGHT_DECAY = 0.001
 
 
     # Loss weights for more precise optimization.
     # Can be used for R-CNN training setup.
     LOSS_WEIGHTS = {
         "rpn_class_loss": 1.,
-        "rpn_bbox_loss": 2.,
+        "rpn_bbox_loss": 1.,
         "mrcnn_class_loss": 2.,
         "mrcnn_bbox_loss": 2.,
         "mrcnn_mask_loss": 5.
@@ -348,9 +329,9 @@ def train(model):
         ])
     """
 
-    print("Training heads with augmentation.")
+    print("Training 5+ layerss with augmentation.")
     print("*****Beginning training*****")
-    print("config.LEARNING_RATE", config.LEARNING_RATE/5)
+    print("config.LEARNING_RATE", config.LEARNING_RATE)
     print("layers_training:", layers_training)
     print("epochs_to_train:", epochs_to_train)
     print("augmentation: ", augmentation)
@@ -359,7 +340,7 @@ def train(model):
     #print("Training network in its entirety with augmentation")
     
     model.train(dataset_train, dataset_val,
-                learning_rate=config.LEARNING_RATE/5,
+                learning_rate=config.LEARNING_RATE,
                 epochs=epochs_to_train,
                 layers=layers_training,
                 augmentation=augmentation)

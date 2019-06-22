@@ -1,48 +1,52 @@
-# Color Splash Example
+# Drones and Convolutional Neural Networks Facilitate Automated and Accurate Cetacean Species Identification and Photogrammetry
 
-This is an example showing the use of Mask RCNN in a real application.
-We train the model to detect balloons only, and then we use the generated 
-masks to keep balloons in color while changing the rest of the image to
-grayscale. 
+This repository has the code needed to go along with the Methods in Ecology and Evolution manuscript "Drones and Convolutional Neural Networks Facilitate Automated and Accurate Cetacean Species Identification and Photogrammetry."
 
-## Installation
-From the [Releases page](https://github.com/matterport/Mask_RCNN/releases) page:
-1. Download `mask_rcnn_balloon.h5`. Save it in the root directory of the repo (the `mask_rcnn` directory).
-2. Download `balloon_dataset.p3`. Expand it such that it's in the path `mask_rcnn/datasets/balloon/`.
+## Environment Setup
+The environment can be set up quite simply for this project using Docker. The Dockerfile included in this directory will create a functional environment matching what was used for training, validation, and testing in the paper. Once Docker is running on your machine this can be created with the se commands
 
-## Apply color splash using the provided weights
-Apply splash effect on an image:
+Build the image:
+`docker build -t photogram_image .`
 
-```bash
-python3 balloon.py splash --weights=/path/to/mask_rcnn/mask_rcnn_balloon.h5 --image=<file name or URL>
-```
+Create a container using this image, have it access your NVIDIA runtime, start up a jupyter notebook, and expose that port and the port needed for running tensorboard:
+`docker run --name photogram_container --runtime=nvidia -it -p 8888:8888 -p 6006:6006 -v ~/:/host photogram_image jupyter notebook --allow-root --ip 0.0.0.0 /host`
 
-Apply splash effect on a video. Requires OpenCV 3.2+:
+Once this container is running you can stop it either by exiting the open terminal or:
 
-```bash
-python3 balloon.py splash --weights=/path/to/mask_rcnn/mask_rcnn_balloon.h5 --video=<file name or URL>
-```
+`docker stop photogram_container`
+
+This can then be restarted with:
+
+`docker start photogram_container`
+
+And once this is running you can re-access the terminal of this container with:
+
+`docker attach photogram_container`
+
+With the Docker container running you can simply go to your browser at the address `http://127.0.0.1:8888`  and view all the jupyter notebooks included in this repository needed for training, testing, and applying this model. 
+
+This code works alongside with the Matterport implementation of [Mask RCNN](https://github.com/matterport/Mask_RCNN/) and requires that to be in a directory of the same level as this repository. For installing that repository we will refer you to the instructions in that [github repo](https://github.com/matterport/Mask_RCNN#installation) and you can use those simple installation instructions from within this Docker container.
+
+This code also expects there to be a directory named `photogram_data` at the same level as this directory and that is where is pulls data. So your structure should look like
+
+`overarching_dir/
+  Mask_RCNN/
+  photogram_data/
+  cetacean_photogram/`
 
 
 ## Run Jupyter notebooks
+
 Open the `inspect_balloon_data.ipynb` or `inspect_balloon_model.ipynb` Jupter notebooks. You can use these notebooks to explore the dataset and run through the detection pipelie step by step.
 
-## Train the Balloon model
+## Train the model
 
-Train a new model starting from pre-trained COCO weights
+If you are train a new model from scratch it is recommended to start from pre-trained COCO weights. You can download those at: https://github.com/matterport/Mask_RCNN/releases/tag/v2.0 and then use the command:
 ```
-python3 balloon.py train --dataset=/path/to/balloon/dataset --weights=coco
+python whale.py train --dataset=/path/to/dataset --weights=coco
 ```
 
 Resume training a model that you had trained earlier
 ```
-python3 balloon.py train --dataset=/path/to/balloon/dataset --weights=last
+python whale.py train --dataset=/path/to/dataset --weights=last
 ```
-
-Train a new model starting from ImageNet weights
-```
-python3 balloon.py train --dataset=/path/to/balloon/dataset --weights=imagenet
-```
-
-The code in `balloon.py` is set to train for 3K steps (30 epochs of 100 steps each), and using a batch size of 2. 
-Update the schedule to fit your needs.
