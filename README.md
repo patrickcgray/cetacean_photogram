@@ -66,7 +66,7 @@ Resume training a model that you had trained earlier
 python whale.py train --dataset=/path/to/dataset --weights=last
 ```
 
-Train with the pre-built model from this repository
+Train with the pre-built model from this repository. This file can be downloaded from https://github.com/patrickcgray/cetacean_photogram/releases and should be located in the cetacean_photogram directory:
 
 ```
 python whale.py train --dataset=/path/to/dataset --weights=cetacean_photogram_model.h5
