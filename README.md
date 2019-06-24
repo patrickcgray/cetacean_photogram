@@ -41,7 +41,7 @@ This code works alongside with the Matterport implementation of [Mask RCNN](http
 This code also expects there to be a directory named `photogram_data` at the same level as this directory and that is where is pulls data. So your structure should look like
 
 ```
-overarching_dir/
+<overarching_dir>/
   Mask_RCNN/
   photogram_data/
   cetacean_photogram/
@@ -50,11 +50,11 @@ overarching_dir/
 
 ## Run Jupyter notebooks
 
-Open the `inspect_balloon_data.ipynb` or `inspect_balloon_model.ipynb` Jupter notebooks. You can use these notebooks to explore the dataset and run through the detection pipelie step by step.
+Open the `inspect_whale_data.ipynb` or `inspect_whale_model.ipynb` Jupter notebooks. You can use these notebooks to explore the dataset and run through the detection pipelie step by step.
 
 ## Train the model
 
-If you are train a new model from scratch it is recommended to start from pre-trained COCO weights. You can download those at: https://github.com/matterport/Mask_RCNN/releases/tag/v2.0 and then use the command:
+If you are training a new model from scratch it is recommended to start from pre-trained COCO weights. You can download those at: https://github.com/matterport/Mask_RCNN/releases/tag/v2.0 and then use the command:
 
 ```
 python whale.py train --dataset=/path/to/dataset --weights=coco
@@ -64,4 +64,10 @@ Resume training a model that you had trained earlier
 
 ```
 python whale.py train --dataset=/path/to/dataset --weights=last
+```
+
+Train with the pre-built model from this repository
+
+```
+python whale.py train --dataset=/path/to/dataset --weights=cetacean_photogram_model.h5
 ```

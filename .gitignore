@@ -2,3 +2,4 @@ logs/
 output/
 .ipynb_checkpoints/
 __pycache__/
+cetacean_photogram_model.h5
