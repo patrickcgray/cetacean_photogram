@@ -2,6 +2,8 @@
 
 This repository has the code needed to go along with the Methods in Ecology and Evolution manuscript "Drones and Convolutional Neural Networks Facilitate Automated and Accurate Cetacean Species Identification and Photogrammetry."
 
+All data necessary to reproduce this work is available at http://doi.org/10.5061/dryad.7482v2n.
+
 ## Environment Setup
 The environment can be set up quite simply for this project using Docker. The Dockerfile included in this directory will create a functional environment matching what was used for training, validation, and testing in the paper. Once Docker is running on your machine this can be created with the se commands
 
